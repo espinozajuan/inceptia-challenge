@@ -5,12 +5,19 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 
 const App: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Check if token exists in localStorage
+    return !!localStorage.getItem('token');
+  });
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
 
   return (
     <>
       <GlobalStyle />
-      {isAuthenticated ? <Home /> : <Login />}
+      {isAuthenticated ? <Home /> : <Login onLogin={handleLogin} />}
     </>
   );
 };

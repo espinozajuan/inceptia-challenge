@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { login } from '../services/api';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -45,18 +46,22 @@ const ErrorMessage = styled.div`
   margin: 10px 0;
 `;
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === 'reactdev@iniceptia.ai' && password === '4eSBbHqiCTPdBCTj') {
-      // Implement login logic here
-      console.log('Login successful');
-      setError('');
-    } else {
+    try {
+      const data = await login(email, password);
+      localStorage.setItem('token', data.token);
+      onLogin();
+    } catch (error) {
       setError('Invalid email or password');
     }
   };
