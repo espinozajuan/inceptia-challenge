@@ -29,4 +29,13 @@ export const login = async (email: string, password: string) => {
   }
 };
 
+export const fetchClients = async () => {
+  try {
+    const response = await api.get('/clients/');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch clients');
+  }
+};
+
 export default api;

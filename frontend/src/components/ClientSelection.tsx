@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { fetchClients } from '../services/api';
 
 const ClientSelectionContainer = styled.div`
   display: flex;
@@ -14,26 +15,34 @@ const ClientItem = styled.div`
   }
 `;
 
-const clients = [
-  'Equivida Mora Temp',
-  'G&T Prestamos Mora',
-  'G&T TC Mora',
-  'Galicia M Temp Gedco',
-  'gmotors',
-  'gmfinancial',
-  'gmsorteo',
-  'GTD',
-  'GTD HBO',
-  'GTD Ventas',
-  'GyT Mora Temp',
-];
+interface Client {
+  id: number;
+  name: string;
+}
 
 const ClientSelection: React.FC = () => {
+  const [clients, setClients] = useState<Client[]>([]);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    const loadClients = async () => {
+      try {
+        const data = await fetchClients();
+        setClients(data);
+      } catch (error) {
+        setError('Failed to fetch clients');
+      }
+    };
+
+    loadClients();
+  }, []);
+
   return (
     <ClientSelectionContainer>
       <h3>CLIENTE</h3>
+      {error && <div>{error}</div>}
       {clients.map((client) => (
-        <ClientItem key={client}>{client}</ClientItem>
+        <ClientItem key={client.id}>{client.name}</ClientItem>
       ))}
     </ClientSelectionContainer>
   );
