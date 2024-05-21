@@ -38,4 +38,23 @@ export const fetchClients = async () => {
   }
 };
 
+export const fetchInboundCases = async (
+  clientId: number,
+  fromDate: string,
+  toDate: string
+) => {
+  try {
+    const response = await api.get(`/inbound-case/`, {
+      params: {
+        bot: clientId,
+        local_updated__date__gte: fromDate,
+        local_updated__date__lte: toDate,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch inbound cases');
+  }
+};
+
 export default api;

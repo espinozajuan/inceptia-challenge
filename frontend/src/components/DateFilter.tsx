@@ -25,16 +25,30 @@ const DateInput = styled.input`
   border-radius: 3px;
 `;
 
-const DateFilter: React.FC = () => {
+interface DateFilterProps {
+  onFromDateChange: (date: string) => void;
+  onToDateChange: (date: string) => void;
+}
+
+const DateFilter: React.FC<DateFilterProps> = ({
+  onFromDateChange,
+  onToDateChange,
+}) => {
   return (
     <DateFilterContainer>
       <DateInputContainer>
         <DateInputLabel>Desde</DateInputLabel>
-        <DateInput type='date' />
+        <DateInput
+          type='date'
+          onChange={(e) => onFromDateChange(e.target.value)}
+        />
       </DateInputContainer>
       <DateInputContainer>
         <DateInputLabel>Hasta</DateInputLabel>
-        <DateInput type='date' />
+        <DateInput
+          type='date'
+          onChange={(e) => onToDateChange(e.target.value)}
+        />
       </DateInputContainer>
     </DateFilterContainer>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ClientSelection from './ClientSelection';
 import DateFilter from './DateFilter';
@@ -28,15 +28,25 @@ const Header = styled.h1`
 `;
 
 const Dashboard: React.FC = () => {
+  const [selectedClientId, setSelectedClientId] = useState<number | null>(null);
+  const [fromDate, setFromDate] = useState<string>('2021-03-01');
+  const [toDate, setToDate] = useState<string>('2022-03-25');
+
   return (
     <DashboardContainer>
       <Sidebar>
-        <ClientSelection />
+        <ClientSelection onSelectClient={setSelectedClientId} />
       </Sidebar>
       <MainContent>
         <Header>Dashboards</Header>
-        <DateFilter />
-        <ConversationTable />
+        <DateFilter onFromDateChange={setFromDate} onToDateChange={setToDate} />
+        {selectedClientId && (
+          <ConversationTable
+            clientId={selectedClientId}
+            fromDate={fromDate}
+            toDate={toDate}
+          />
+        )}
       </MainContent>
     </DashboardContainer>
   );
