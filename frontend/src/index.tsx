@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import GlobalStyle from './styles/global';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 const App: React.FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
   return (
     <>
       <GlobalStyle />
-      <div>
-        <Login />
-        {/* <Dashboard /> */}
-      </div>
+      {isAuthenticated ? <Home /> : <Login />}
     </>
   );
 };
