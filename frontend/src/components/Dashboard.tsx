@@ -53,6 +53,12 @@ const Dashboard: React.FC = () => {
   const [toDate, setToDate] = useState<string>('');
   const [activeStatusFilter, setActiveStatusFilter] = useState<string>('TODOS');
 
+  const handleClearFilters = () => {
+    setFromDate('');
+    setToDate('');
+    setActiveStatusFilter('TODOS');
+  };
+
   return (
     <DashboardContainer>
       <Sidebar>
@@ -66,6 +72,7 @@ const Dashboard: React.FC = () => {
           onFromDateChange={setFromDate}
           onToDateChange={setToDate}
           onStatusFilterChange={setActiveStatusFilter}
+          onClearFilters={handleClearFilters}
         />
         {selectedClientId && (
           <ConversationTable

@@ -111,16 +111,30 @@ const Error = styled.p`
   text-align: right;
 `;
 
+const ClearButton = styled.button`
+  padding: 8px 16px;
+  background-color: #e20616;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #d00514;
+  }
+`;
+
 interface DateFilterProps {
   onFromDateChange: (date: string) => void;
   onToDateChange: (date: string) => void;
   onStatusFilterChange: (status: string) => void;
+  onClearFilters: () => void;
 }
 
 const DateFilter: React.FC<DateFilterProps> = ({
   onFromDateChange,
   onToDateChange,
   onStatusFilterChange,
+  onClearFilters,
 }) => {
   // States
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
@@ -165,6 +179,13 @@ const DateFilter: React.FC<DateFilterProps> = ({
     onToDateChange(date);
   };
 
+  const handleClearFilters = () => {
+    setFromDate('');
+    setToDate('');
+    setActiveTabIndex(0);
+    onClearFilters();
+  };
+
   return (
     <MainWrapper>
       <SearchBoxMainContainer>
@@ -196,6 +217,15 @@ const DateFilter: React.FC<DateFilterProps> = ({
             disabled={!fromDate}
           />
         </DateInputContainer>
+        {fromDate && toDate && (
+          <SearchIcon
+            src='/icons/delete.svg'
+            width={23}
+            height={23}
+            alt='icon'
+            onClick={handleClearFilters}
+          />
+        )}
       </DateFilterContainer>
       {!isFromDateValid && <Error>La fecha 'Desde' debe ser válida.</Error>}
       {isFromDateFuture && (
