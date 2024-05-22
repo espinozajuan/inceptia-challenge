@@ -1,64 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { fetchClients } from '../services/api';
-import { Loader } from './shared';
-
-const ClientSelectionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const H3 = styled.h3`
-  text-align: center;
-  width: 100%;
-  font-size: 24px;
-  line-height: 0px;
-  color: #8d929c;
-  font-weight: 300;
-`;
-
-const ClientItemWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-const ClientItem = styled.div<{ selected: Boolean }>`
-  cursor: pointer;
-  padding: 10px 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  font-size: 16px;
-  font-weight: 500;
-  background-color: ${({ selected }) => (selected ? '#D7E4F5' : 'transparent')};
-  border-right: ${({ selected }) =>
-    selected ? '4px solid #006ACB' : 'transparent'};
-  color: ${({ selected }) => (selected ? '#006ACB' : '#7984A2')};
-  &:hover {
-    background-color: #d7e4f5;
-    color: #526aca;
-    padding: 10px 8px;
-    border-radius: 4px;
-  }
-`;
-
-const Error = styled.p`
-  color: red;
-  font-size: 16px;
-  font-weight: 500;
-  width: 100%;
-  text-align: left;
-`;
-
-interface Client {
-  id: number;
-  name: string;
-}
-
-interface ClientSelectionProps {
-  onSelectClient: (clientId: number) => void;
-}
+import { fetchClients } from '../../services/api';
+import { Loader } from '../Loader';
+import {
+  ClientSelectionContainer,
+  H3,
+  ClientItemWrapper,
+  ClientItem,
+  Error,
+} from './ClientSelection.styles';
+import { Client, ClientSelectionProps } from './ClientSelection.types';
 
 const ClientSelection: React.FC<ClientSelectionProps> = ({
   onSelectClient,
