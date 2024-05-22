@@ -84,6 +84,7 @@ interface ConversationTableProps {
   fromDate: string;
   toDate: string;
   statusFilter: string;
+  searchTerm: string;
 }
 
 const ConversationTable: React.FC<ConversationTableProps> = ({
@@ -91,6 +92,7 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
   fromDate,
   toDate,
   statusFilter,
+  searchTerm,
 }) => {
   const [cases, setCases] = useState<Case[]>([]);
   const [error, setError] = useState<string>('');
@@ -130,11 +132,18 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
   };
 
   const filteredCases = cases.filter((caseData) => {
-    return (
+    const statusMatches =
       normalizeString(statusFilter) === 'todos' ||
       normalizeString(caseData.case_result.name) ===
-        normalizeString(statusFilter)
-    );
+        normalizeString(statusFilter);
+
+    const searchTermMatches =
+      caseData.case_uuid.includes(searchTerm) ||
+      (caseData.extra_metadata.dni &&
+        caseData.extra_metadata.dni.includes(searchTerm)) ||
+      caseData.phone.toString().includes(searchTerm);
+
+    return statusMatches && searchTermMatches;
   });
 
   return (

@@ -128,6 +128,7 @@ interface DateFilterProps {
   onToDateChange: (date: string) => void;
   onStatusFilterChange: (status: string) => void;
   onClearFilters: () => void;
+  onSearchTermChange: (term: string) => void;
 }
 
 const DateFilter: React.FC<DateFilterProps> = ({
@@ -135,6 +136,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
   onToDateChange,
   onStatusFilterChange,
   onClearFilters,
+  onSearchTermChange,
 }) => {
   // States
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
@@ -186,11 +188,19 @@ const DateFilter: React.FC<DateFilterProps> = ({
     onClearFilters();
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearchTermChange(event.target.value);
+  };
+
   return (
     <MainWrapper>
       <SearchBoxMainContainer>
         <SearchInputContainer>
-          <SearchInput type='text' placeholder='ID Caso, ID Cliente o Tel' />
+          <SearchInput
+            type='text'
+            placeholder='ID Caso, ID Cliente o Tel'
+            onChange={handleSearchChange}
+          />
           <SearchIcon
             src='/icons/search.svg'
             width={23}

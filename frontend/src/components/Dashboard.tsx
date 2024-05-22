@@ -52,6 +52,7 @@ const Dashboard: React.FC = () => {
   const [fromDate, setFromDate] = useState<string>('');
   const [toDate, setToDate] = useState<string>('');
   const [activeStatusFilter, setActiveStatusFilter] = useState<string>('TODOS');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleClearFilters = () => {
     setFromDate('');
@@ -73,6 +74,7 @@ const Dashboard: React.FC = () => {
           onToDateChange={setToDate}
           onStatusFilterChange={setActiveStatusFilter}
           onClearFilters={handleClearFilters}
+          onSearchTermChange={setSearchTerm}
         />
         {selectedClientId && (
           <ConversationTable
@@ -80,6 +82,7 @@ const Dashboard: React.FC = () => {
             fromDate={fromDate}
             toDate={toDate}
             statusFilter={activeStatusFilter}
+            searchTerm={searchTerm}
           />
         )}
       </MainContent>
