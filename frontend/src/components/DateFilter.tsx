@@ -106,11 +106,13 @@ const DateInput = styled.input`
 interface DateFilterProps {
   onFromDateChange: (date: string) => void;
   onToDateChange: (date: string) => void;
+  onStatusFilterChange: (status: string) => void;
 }
 
 const DateFilter: React.FC<DateFilterProps> = ({
   onFromDateChange,
   onToDateChange,
+  onStatusFilterChange,
 }) => {
   // States
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
@@ -118,6 +120,7 @@ const DateFilter: React.FC<DateFilterProps> = ({
   // Handler ==> Update active tab index
   const updateActiveTabIndex = (updatedIndex: number) => {
     setActiveTabIndex(updatedIndex);
+    onStatusFilterChange(dateFilterTabs[updatedIndex]); // Call the handler to update the status filter
   };
 
   return (

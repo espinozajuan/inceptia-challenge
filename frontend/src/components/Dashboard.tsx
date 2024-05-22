@@ -51,6 +51,7 @@ const Dashboard: React.FC = () => {
   const [selectedClientId, setSelectedClientId] = useState<number | null>(null);
   const [fromDate, setFromDate] = useState<string>('2021-03-01');
   const [toDate, setToDate] = useState<string>('2022-03-25');
+  const [activeStatusFilter, setActiveStatusFilter] = useState<string>('TODOS');
 
   return (
     <DashboardContainer>
@@ -61,12 +62,17 @@ const Dashboard: React.FC = () => {
         <GreetingsWrapper>
           <H2>Reportes</H2>
         </GreetingsWrapper>
-        <DateFilter onFromDateChange={setFromDate} onToDateChange={setToDate} />
+        <DateFilter
+          onFromDateChange={setFromDate}
+          onToDateChange={setToDate}
+          onStatusFilterChange={setActiveStatusFilter}
+        />
         {selectedClientId && (
           <ConversationTable
             clientId={selectedClientId}
             fromDate={fromDate}
             toDate={toDate}
+            statusFilter={activeStatusFilter}
           />
         )}
       </MainContent>

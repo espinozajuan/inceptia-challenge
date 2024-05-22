@@ -83,12 +83,14 @@ interface ConversationTableProps {
   clientId: number;
   fromDate: string;
   toDate: string;
+  statusFilter: string;
 }
 
 const ConversationTable: React.FC<ConversationTableProps> = ({
   clientId,
   fromDate,
   toDate,
+  statusFilter,
 }) => {
   const [cases, setCases] = useState<Case[]>([]);
   const [error, setError] = useState<string>('');
@@ -110,6 +112,21 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
     loadCases();
   }, [clientId, fromDate, toDate]);
 
+  const normalizeString = (str: string) => {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  };
+
+  const filteredCases = cases.filter((caseData) => {
+    return (
+      normalizeString(statusFilter) === 'todos' ||
+      normalizeString(caseData.case_result.name) ===
+        normalizeString(statusFilter)
+    );
+  });
+
   return (
     <TableContainer>
       {error && <div>{error}</div>}
@@ -128,7 +145,7 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {cases.map((caseData) => (
+            {filteredCases.map((caseData) => (
               <tr key={caseData.id}>
                 <TableCell isRed>{caseData.last_updated}</TableCell>
                 <TableCell>{caseData.case_uuid}</TableCell>
