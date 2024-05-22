@@ -32,21 +32,23 @@ const Dashboard: React.FC = () => {
         <GreetingsWrapper>
           <H2>Reportes</H2>
         </GreetingsWrapper>
-        <DateFilter
-          onFromDateChange={setFromDate}
-          onToDateChange={setToDate}
-          onStatusFilterChange={setActiveStatusFilter}
-          onClearFilters={handleClearFilters}
-          onSearchTermChange={setSearchTerm}
-        />
         {selectedClientId && (
-          <ConversationTable
-            clientId={selectedClientId}
-            fromDate={fromDate}
-            toDate={toDate}
-            statusFilter={activeStatusFilter}
-            searchTerm={searchTerm}
-          />
+          <>
+            <DateFilter
+              onFromDateChange={setFromDate}
+              onToDateChange={setToDate}
+              onStatusFilterChange={setActiveStatusFilter}
+              onClearFilters={handleClearFilters}
+              onSearchTermChange={setSearchTerm}
+            />
+            <ConversationTable
+              clientId={selectedClientId}
+              fromDate={fromDate}
+              toDate={toDate}
+              statusFilter={activeStatusFilter}
+              searchTerm={searchTerm}
+            />
+          </>
         )}
       </MainContent>
     </DashboardContainer>
