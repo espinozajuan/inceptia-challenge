@@ -7,6 +7,7 @@ import {
   ClientItemWrapper,
   ClientItem,
   Error,
+  Button,
 } from './ClientSelection.styles';
 import { Client, ClientSelectionProps } from './ClientSelection.types';
 
@@ -39,6 +40,11 @@ const ClientSelection: React.FC<ClientSelectionProps> = ({
     onSelectClient(clientId);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+  };
+
   return (
     <ClientSelectionContainer>
       <H3>CLIENTE</H3>
@@ -63,6 +69,9 @@ const ClientSelection: React.FC<ClientSelectionProps> = ({
           </ClientItem>
         ))}
       </ClientItemWrapper>
+      <Button type='submit' onClick={handleLogout}>
+        Cerrar sesión
+      </Button>
     </ClientSelectionContainer>
   );
 };

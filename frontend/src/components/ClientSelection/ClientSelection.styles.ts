@@ -4,6 +4,7 @@ export const ClientSelectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
 `;
 
 export const H3 = styled.h3`
@@ -19,6 +20,7 @@ export const ClientItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
 `;
 
 export const ClientItem = styled.div<{ selected: Boolean }>`
@@ -46,4 +48,17 @@ export const Error = styled.p`
   font-weight: 500;
   width: 100%;
   text-align: left;
+`;
+
+export const Button = styled.button`
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+  color: white;
+  cursor: pointer;
+  background: #bd3f32;
+  margin-bottom: 20px;
 `;
