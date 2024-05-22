@@ -16,7 +16,7 @@ const DashboardContainer = styled.div`
 const Sidebar = styled.div`
   width: 250px;
   padding: 10px;
-  background-color: #ffe6e6;
+  background-color: #eff3f9;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -37,14 +37,12 @@ const MainContent = styled.div`
 const GreetingsWrapper = styled.div`
   border-radius: 12px;
   padding: 10px;
-  height: 120px;
-  background-color: #50d8d7;
-  background-image: linear-gradient(316deg, #50d8d7 0%, #923993 74%);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 
 const H2 = styled.h2`
-  color: #ffffff;
-  font-weight: 500;
+  color: #8d929c;
+  font-weight: 400;
   font-size: 36px;
   line-height: 0px;
 `;
@@ -61,7 +59,7 @@ const Dashboard: React.FC = () => {
       </Sidebar>
       <MainContent>
         <GreetingsWrapper>
-          <H2>Dashboard</H2>
+          <H2>Reportes</H2>
         </GreetingsWrapper>
         <DateFilter onFromDateChange={setFromDate} onToDateChange={setToDate} />
         {selectedClientId && (

@@ -14,8 +14,8 @@ const H3 = styled.h3`
   width: 100%;
   font-size: 24px;
   line-height: 0px;
-  color: #36454f;
-  font-weight: 600;
+  color: #8d929c;
+  font-weight: 300;
 `;
 
 const ClientItemWrapper = styled.div`
@@ -31,12 +31,13 @@ const ClientItem = styled.div<{ selected: Boolean }>`
   transition: all 0.3s ease;
   font-size: 16px;
   font-weight: 500;
-  text-transform: capitalize;
-  background-color: ${({ selected }) => (selected ? '#7469B6' : '#E1AFD1')};
-  color: ${({ selected }) => (selected ? '#ffffff' : '#36454f')};
+  background-color: ${({ selected }) => (selected ? '#D7E4F5' : 'transparent')};
+  border-right: ${({ selected }) =>
+    selected ? '4px solid #006ACB' : 'transparent'};
+  color: ${({ selected }) => (selected ? '#006ACB' : '#7984A2')};
   &:hover {
-    background-color: #7469b6;
-    color: #ffffff;
+    background-color: #d7e4f5;
+    color: #526aca;
     padding: 10px 8px;
     border-radius: 4px;
   }

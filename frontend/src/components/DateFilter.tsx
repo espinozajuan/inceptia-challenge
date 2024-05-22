@@ -54,9 +54,9 @@ const TabsContainer = styled.div`
 `;
 
 const Tab = styled.div<{ isActive: Boolean }>`
-  color: ${({ isActive }) => (isActive ? '#36454F' : '#d3d3d3')};
+  color: ${({ isActive }) => (isActive ? '30245D' : '#d3d3d3')};
   font-weight: ${({ isActive }) => (isActive ? 600 : 500)};
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
 `;
 
@@ -74,9 +74,9 @@ const DateInputContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 4px;
-  border: 1px solid #36454f;
-  border-radius: 4px;
+  border: 1px solid #1b83d8;
   padding: 4px 4px;
+  border-radius: 4px;
 `;
 
 const DateInputLabel = styled.label`

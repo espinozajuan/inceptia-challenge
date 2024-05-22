@@ -4,7 +4,7 @@ import { fetchInboundCases } from '../services/api';
 import { Loader } from './shared';
 
 const TableContainer = styled.div`
-  width: 100%; /* Allow container to fill available space */
+  width: 100%;
 `;
 
 const TableWrapper = styled.div`
@@ -17,29 +17,36 @@ const TableWrapper = styled.div`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #7469b6;
+  border: 1px solid #eff3f9;
 `;
 
 const TableHeader = styled.th`
   padding: 10px;
-  background-color: #7469b6;
+  background-color: #e20616;
   font-weight: 500;
   color: #ffffff;
 `;
 
-const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: #ffe6e6;
-  }
-`;
-
-const TableCell = styled.td<{ markRed?: boolean }>`
+const TableCell = styled.td<{ isRed?: boolean }>`
   padding: 10px;
   text-align: center;
-  border: 1px solid #7469b6;
+  border: 1px solid #d3d3d3;
   text-transform: uppercase;
   font-size: 14px;
-  color: ${({ markRed }) => (markRed ? 'red' : 'black')};
+  font-weight: 500;
+  color: ${({ isRed }) => (isRed ? 'red' : '#30245D')};
+`;
+
+const EstadoTableCell = styled.td<{ isRed?: boolean }>`
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${({ isRed }) => (isRed ? '#E73377' : '#1B83D8')};
+  background-color: ${({ isRed }) => (isRed ? '#FADDE6' : '#EFF3F9')};
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
 interface Case {
@@ -122,23 +129,23 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
           </thead>
           <tbody>
             {cases.map((caseData) => (
-              <TableRow key={caseData.id}>
-                <TableCell>{caseData.last_updated}</TableCell>
+              <tr key={caseData.id}>
+                <TableCell isRed>{caseData.last_updated}</TableCell>
                 <TableCell>{caseData.case_uuid}</TableCell>
                 <TableCell>{caseData.phone}</TableCell>
-                <TableCell>{caseData.extra_metadata.dni}</TableCell>
-                <TableCell>{caseData.extra_metadata.grupo}</TableCell>
-                <TableCell>{caseData.extra_metadata.orden}</TableCell>
-                <TableCell>{caseData.case_duration}</TableCell>
-                <TableCell
-                  markRed={
+                <TableCell isRed>{caseData.extra_metadata.dni}</TableCell>
+                <TableCell isRed>{caseData.extra_metadata.grupo}</TableCell>
+                <TableCell isRed>{caseData.extra_metadata.orden}</TableCell>
+                <TableCell isRed>{caseData.case_duration}</TableCell>
+                <EstadoTableCell
+                  isRed={
                     caseData.case_result.name.toLowerCase() ===
                     'cliente no encontrado en db'
                   }
                 >
                   {caseData.case_result.name}
-                </TableCell>
-              </TableRow>
+                </EstadoTableCell>
+              </tr>
             ))}
           </tbody>
         </Table>

@@ -31,7 +31,7 @@ const H1 = styled.h1`
   text-align: center;
   width: 100%;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 0px;
 `;
 
@@ -68,13 +68,7 @@ const Button = styled.button`
   width: 100%;
   color: white;
   cursor: pointer;
-  background-color: 7469B6;
-  background-image: linear-gradient(316deg, #50d8d7 0%, #923993 74%);
-  transition: all 0.5s ease;
-
-  &:hover {
-    background-image: linear-gradient(90deg, #50d8d7 0%, #923993 74%);
-  }
+  background: #bd3f32;
 `;
 
 const ErrorMessage = styled.div`
@@ -112,7 +106,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   return (
     <LoginContainer>
       <Form onSubmit={handleLogin}>
-        <H1>Login</H1>
+        <H1>LOGIN</H1>
         <InputsContainer>
           <Input
             type='email'
