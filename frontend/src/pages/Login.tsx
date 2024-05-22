@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { login } from '../services/api';
+import { Loader } from '../components/shared';
 
 const LoginContainer = styled.section`
   display: flex;
@@ -67,7 +68,7 @@ const Button = styled.button`
   width: 100%;
   color: white;
   cursor: pointer;
-  background-color: #50d8d7;
+  background-color: 7469B6;
   background-image: linear-gradient(316deg, #50d8d7 0%, #923993 74%);
   transition: all 0.5s ease;
 
@@ -92,15 +93,19 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isloading, setIsLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const data = await login(email, password);
       localStorage.setItem('token', data.token);
       onLogin();
     } catch (error) {
       setError('Invalid email or password');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -125,7 +130,17 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           />
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </InputsContainer>
-        <Button type='submit'>Login</Button>
+        {!isloading ? (
+          <Button type='submit'>Login</Button>
+        ) : (
+          <div
+            style={{
+              margin: 'auto',
+            }}
+          >
+            <Loader />
+          </div>
+        )}
       </Form>
     </LoginContainer>
   );

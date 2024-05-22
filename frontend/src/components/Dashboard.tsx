@@ -7,24 +7,46 @@ import ConversationTable from './ConversationTable';
 const DashboardContainer = styled.div`
   display: flex;
   height: 100vh;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
 `;
 
 const Sidebar = styled.div`
   width: 250px;
-  border-right: 1px solid #ccc;
   padding: 10px;
-  background-color: #f8f8f8;
+  background-color: #ffe6e6;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-shrink: 0;
+  overflow-y: auto;
 `;
 
 const MainContent = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   padding: 20px;
+  margin-left: 270px;
 `;
 
-const Header = styled.h1`
-  margin-bottom: 20px;
+const GreetingsWrapper = styled.div`
+  border-radius: 12px;
+  padding: 10px;
+  height: 120px;
+  background-color: #50d8d7;
+  background-image: linear-gradient(316deg, #50d8d7 0%, #923993 74%);
+`;
+
+const H2 = styled.h2`
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 0px;
 `;
 
 const Dashboard: React.FC = () => {
@@ -38,7 +60,9 @@ const Dashboard: React.FC = () => {
         <ClientSelection onSelectClient={setSelectedClientId} />
       </Sidebar>
       <MainContent>
-        <Header>Dashboards</Header>
+        <GreetingsWrapper>
+          <H2>Dashboard</H2>
+        </GreetingsWrapper>
         <DateFilter onFromDateChange={setFromDate} onToDateChange={setToDate} />
         {selectedClientId && (
           <ConversationTable
