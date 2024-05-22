@@ -121,6 +121,7 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
 
     loadCases();
   }, [clientId, fromDate, toDate]);
+
   const normalizeString = (str: string) => {
     return str
       .normalize('NFD')

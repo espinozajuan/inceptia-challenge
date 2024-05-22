@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { dateFilterTabs } from '../constants';
 
@@ -103,6 +103,14 @@ const DateInput = styled.input`
   }
 `;
 
+const Error = styled.p`
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+  text-align: right;
+`;
+
 interface DateFilterProps {
   onFromDateChange: (date: string) => void;
   onToDateChange: (date: string) => void;
@@ -118,6 +126,28 @@ const DateFilter: React.FC<DateFilterProps> = ({
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [fromDate, setFromDate] = useState<string>('');
   const [toDate, setToDate] = useState<string>('');
+  const [isFromDateValid, setIsFromDateValid] = useState<boolean>(true);
+  const [isToDateValid, setIsToDateValid] = useState<boolean>(true);
+  const [isToDateFuture, setIsToDateFuture] = useState<boolean>(false);
+  const [isFromDateFuture, setIsFromDateFuture] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Validate if the "To" date is greater than or equal to the "From" date
+    if (fromDate && toDate) {
+      setIsToDateValid(new Date(toDate) >= new Date(fromDate));
+      setIsToDateFuture(new Date(toDate) > new Date());
+    } else {
+      setIsToDateValid(true);
+      setIsToDateFuture(false);
+    }
+
+    // Validate if the "From" date is not greater than today's date
+    if (fromDate) {
+      setIsFromDateFuture(new Date(fromDate) > new Date());
+    } else {
+      setIsFromDateFuture(false);
+    }
+  }, [fromDate, toDate]);
 
   // Handler ==> Update active tab index
   const updateActiveTabIndex = (updatedIndex: number) => {
@@ -167,6 +197,18 @@ const DateFilter: React.FC<DateFilterProps> = ({
           />
         </DateInputContainer>
       </DateFilterContainer>
+      {!isFromDateValid && <Error>La fecha 'Desde' debe ser válida.</Error>}
+      {isFromDateFuture && (
+        <Error>La fecha 'Desde' no puede ser una fecha futura.</Error>
+      )}
+      {!isToDateValid && (
+        <Error>
+          La fecha 'Hasta' debe ser posterior o igual a la fecha 'Desde'.
+        </Error>
+      )}
+      {isToDateFuture && (
+        <Error>La fecha 'Hasta' no puede ser una fecha futura.</Error>
+      )}
       <TabsContainer>
         {dateFilterTabs.map((tab, index) => (
           <Tab

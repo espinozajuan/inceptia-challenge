@@ -97,7 +97,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       localStorage.setItem('token', data.token);
       onLogin();
     } catch (error) {
-      setError('Invalid email or password');
+      setError('Email o contraseña incorrecta');
     } finally {
       setIsLoading(false);
     }
