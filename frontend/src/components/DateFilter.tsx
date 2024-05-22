@@ -116,11 +116,23 @@ const DateFilter: React.FC<DateFilterProps> = ({
 }) => {
   // States
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
+  const [fromDate, setFromDate] = useState<string>('');
+  const [toDate, setToDate] = useState<string>('');
 
   // Handler ==> Update active tab index
   const updateActiveTabIndex = (updatedIndex: number) => {
     setActiveTabIndex(updatedIndex);
     onStatusFilterChange(dateFilterTabs[updatedIndex]); // Call the handler to update the status filter
+  };
+
+  const handleFromDateChange = (date: string) => {
+    setFromDate(date);
+    onFromDateChange(date);
+  };
+
+  const handleToDateChange = (date: string) => {
+    setToDate(date);
+    onToDateChange(date);
   };
 
   return (
@@ -141,14 +153,17 @@ const DateFilter: React.FC<DateFilterProps> = ({
           <DateInputLabel>Desde</DateInputLabel>
           <DateInput
             type='date'
-            onChange={(e) => onFromDateChange(e.target.value)}
+            value={fromDate}
+            onChange={(e) => handleFromDateChange(e.target.value)}
           />
         </DateInputContainer>
         <DateInputContainer>
           <DateInputLabel>Hasta</DateInputLabel>
           <DateInput
             type='date'
-            onChange={(e) => onToDateChange(e.target.value)}
+            value={toDate}
+            onChange={(e) => handleToDateChange(e.target.value)}
+            disabled={!fromDate}
           />
         </DateInputContainer>
       </DateFilterContainer>

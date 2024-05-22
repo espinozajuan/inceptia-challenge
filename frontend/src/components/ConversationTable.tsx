@@ -100,7 +100,17 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
     const loadCases = async () => {
       try {
         setIsLoading(true);
-        const data = await fetchInboundCases(clientId, fromDate, toDate);
+        let data;
+        if (fromDate && toDate) {
+          data = await fetchInboundCases(clientId, fromDate, toDate);
+        } else {
+          data = await fetchInboundCases(clientId, '', '');
+        }
+        if (data.results.length === 0) {
+          setError('No se encontraron resultados.');
+        } else {
+          setError('');
+        }
         setCases(data.results);
       } catch (error) {
         setError('Failed to fetch cases');
@@ -111,7 +121,6 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
 
     loadCases();
   }, [clientId, fromDate, toDate]);
-
   const normalizeString = (str: string) => {
     return str
       .normalize('NFD')
@@ -129,7 +138,6 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
 
   return (
     <TableContainer>
-      {error && <div>{error}</div>}
       <TableWrapper>
         <Table>
           <thead>
@@ -144,6 +152,7 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
               <TableHeader>Estado</TableHeader>
             </tr>
           </thead>
+          {error && <div>{error}</div>}
           <tbody>
             {filteredCases.map((caseData) => (
               <tr key={caseData.id}>

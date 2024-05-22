@@ -49,8 +49,8 @@ const H2 = styled.h2`
 
 const Dashboard: React.FC = () => {
   const [selectedClientId, setSelectedClientId] = useState<number | null>(null);
-  const [fromDate, setFromDate] = useState<string>('2021-03-01');
-  const [toDate, setToDate] = useState<string>('2022-03-25');
+  const [fromDate, setFromDate] = useState<string>('');
+  const [toDate, setToDate] = useState<string>('');
   const [activeStatusFilter, setActiveStatusFilter] = useState<string>('TODOS');
 
   return (
