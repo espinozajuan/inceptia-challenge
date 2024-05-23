@@ -1,4 +1,4 @@
-#ReactJS Challenge
+### ReactJS Challenge | [Preview Vercel](https://inceptia-challenge.vercel.app/)
 
 ## General Info ##
 This project uses the following technologies:
