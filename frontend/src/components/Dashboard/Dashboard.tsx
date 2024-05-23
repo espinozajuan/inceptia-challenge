@@ -17,6 +17,7 @@ const Dashboard: React.FC = () => {
   const [activeStatusFilter, setActiveStatusFilter] = useState<string>('TODOS');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+  // Clear filters handler
   const handleClearFilters = () => {
     setFromDate('');
     setToDate('');

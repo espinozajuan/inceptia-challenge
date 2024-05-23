@@ -23,6 +23,7 @@ const ConversationTable: React.FC<ConversationTableProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Fetch cases based on clientId, fromDate, and toDate
     const loadCases = async () => {
       try {
         setIsLoading(true);

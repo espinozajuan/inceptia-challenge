@@ -23,7 +23,6 @@ const DateFilter: React.FC<DateFilterProps> = ({
   onClearFilters,
   onSearchTermChange,
 }) => {
-  // States
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   const [fromDate, setFromDate] = useState<string>('');
   const [toDate, setToDate] = useState<string>('');

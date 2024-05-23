@@ -18,13 +18,14 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [error, setError] = useState('');
   const [isloading, setIsLoading] = useState(false);
 
+  // Handle login process
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setIsLoading(true);
       const data = await login(email, password);
       localStorage.setItem('token', data.token);
-      onLogin();
+      onLogin(); // Callback to parent component
     } catch (error) {
       setError('Email o contraseña incorrecta');
     } finally {

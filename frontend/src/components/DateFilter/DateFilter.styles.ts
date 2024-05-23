@@ -48,7 +48,7 @@ export const TabsContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
 `;
 
 export const Tab = styled.div<{ isActive: Boolean }>`

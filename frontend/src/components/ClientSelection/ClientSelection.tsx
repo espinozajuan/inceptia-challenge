@@ -20,6 +20,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Fetch clients from API
     const loadClients = async () => {
       setIsLoading(true);
       try {
